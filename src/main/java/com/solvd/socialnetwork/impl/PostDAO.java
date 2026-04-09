@@ -1,6 +1,7 @@
 package com.solvd.socialnetwork.impl;
 
-import com.solvd.socialnetwork.dao.IUserDAO;
+import com.solvd.socialnetwork.dao.IPostDAO;
+import com.solvd.socialnetwork.model.Post;
 import com.solvd.socialnetwork.model.User;
 
 import java.sql.Connection;
@@ -8,59 +9,56 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO implements IUserDAO {
+public class PostDAO implements IPostDAO {
 
     @Override
-    public User getById(int id) {
-        User user = new User();
-        String sql = "SELECT * FROM users WHERE id = ?";
+    public Post getById(int id) {
+        Post post = new Post();
+        String sql = "SELECT * FROM posts WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
         try {
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet resultSet = stm.executeQuery();
             if (resultSet.next()) {
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setUsername(resultSet.getString("username"));
+                post.setUserId(resultSet.getLong("userId"));
+                post.setContent(resultSet.getString("content"));
+                post.setMediaType(resultSet.getString("media_type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionPool.getInstance().releaseConnection(con);
         }
-        return user;    }
+        return post;    }
 
     @Override
-    public void save(User user) {
-        String sql = "INSERT INTO users (username, firstName, lastName, email, password, profilePicture, birthDate, registerDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public void save(Post post) {
+        String sql = "INSERT INTO posts (userId, content, mediaType, mediaUrl, createdDate) VALUES (?, ?, ?, ?, ?)";
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setString(1, user.getUsername());
-            stm.setString(2, user.getFirstName());
-            stm.setString(3, user.getLastName());
-            stm.setString(4, user.getEmail());
-            stm.setString(5, user.getPassword());
-            stm.setString(6, user.getProfilePicture());
-            stm.setString(7, user.getBirthDate());
-            stm.setString(8, user.getRegisterDate());
+            stm.setLong(1, post.getUserId());
+            stm.setString(2, post.getContent());
+            stm.setString(3, post.getMediaType());
+            stm.setString(4, post.getMediaUrl());
+            stm.setString(5, post.getCreatedDate());
             stm.executeUpdate();
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         } finally {
             ConnectionPool.getInstance().releaseConnection(con);
         }
     }
 
     @Override
-    public void update(User user) {
-        String sql = "UPDATE users SET username = ? WHERE id = ?";
+    public void update(Post post) {
+        String sql = "UPDATE posts SET content = ? WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setString(1, user.getUsername());
-            stm.setLong(2, user.getId());
+            stm.setString(1, post.getContent());
+            stm.setLong(2, post.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +70,7 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public void deleteById(int id) {
-        String sql = "UPDATE FROM users WHERE id = ?";
+        String sql = "UPDATE FROM posts WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
