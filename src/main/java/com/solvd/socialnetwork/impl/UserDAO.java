@@ -3,10 +3,7 @@ package com.solvd.socialnetwork.impl;
 import com.solvd.socialnetwork.dao.IUserDAO;
 import com.solvd.socialnetwork.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAO implements IUserDAO {
 
@@ -33,18 +30,19 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public void save(User user) {
-        String sql = "INSERT INTO users (username, firstName, lastName, email, password, profilePicture, birthDate, registerDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (id, username, firstName, lastName, email, password, profilePicture, birthDate, registerDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setString(1, user.getUsername());
-            stm.setString(2, user.getFirstName());
-            stm.setString(3, user.getLastName());
-            stm.setString(4, user.getEmail());
-            stm.setString(5, user.getPassword());
-            stm.setString(6, user.getProfilePicture());
-            stm.setString(7, user.getBirthDate());
-            stm.setString(8, user.getRegisterDate());
+            stm.setInt(1, user.getId());
+            stm.setString(2, user.getUsername());
+            stm.setString(3, user.getFirstName());
+            stm.setString(4, user.getLastName());
+            stm.setString(5, user.getEmail());
+            stm.setString(6, user.getPassword());
+            stm.setString(7, user.getProfilePicture());
+            stm.setDate(8, Date.valueOf(user.getBirthDate()));
+            stm.setTimestamp(9, Timestamp.valueOf(user.getRegisterDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
            e.printStackTrace();
@@ -60,7 +58,7 @@ public class UserDAO implements IUserDAO {
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, user.getUsername());
-            stm.setLong(2, user.getId());
+            stm.setInt(2, user.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +74,7 @@ public class UserDAO implements IUserDAO {
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setLong(1, id);
+            stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

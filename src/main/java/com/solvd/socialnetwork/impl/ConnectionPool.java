@@ -10,7 +10,7 @@ public class ConnectionPool {
     private static ConnectionPool instance;
     private final BlockingQueue<Connection> pool;
     private static final int MAX_CONNECTIONS = 5;
-    private static final String URL = "JDBC:mysql://loalhost:3306/socialnetwork";
+    private static final String URL = "JDBC:mysql://localhost:3306/socialnetwork";
     private static final String USER = "root";
     private static final String PASSWORD = "00000000";
 

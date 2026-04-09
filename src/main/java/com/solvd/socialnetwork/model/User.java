@@ -1,39 +1,55 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class User {
 
-    private Long id;
+    private Integer id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String profilePicture;
-    private String birthDate;
-    private String registerDate;
+    private LocalDate birthDate;
+    private LocalDateTime registerDate;
 
+    public User () {};
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public User(Integer id, String username, String firstName, String lastName, String email, String password, String profilePicture, LocalDate birthDate, LocalDateTime registerDate) {
         this.id = id;
-    }
-
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.profilePicture = profilePicture;
+        this.birthDate = birthDate;
         this.registerDate = registerDate;
     }
 
-    public String getBirthDate() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(LocalDateTime registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
