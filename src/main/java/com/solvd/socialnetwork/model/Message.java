@@ -1,11 +1,23 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Message {
     private Long id;
     private Long senderId;
     private Long chatId;
     private String content;
-    private String sentDate;
+    private LocalDateTime sentDate;
+
+    public Message() {}
+
+    public Message(LocalDateTime sentDate, String content, Long chatId, Long senderId, Long id) {
+        this.sentDate = sentDate;
+        this.content = content;
+        this.chatId = chatId;
+        this.senderId = senderId;
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -39,11 +51,11 @@ public class Message {
         this.content = content;
     }
 
-    public String getSentDate() {
+    public LocalDateTime getSentDate() {
         return sentDate;
     }
 
-    public void setSentDate(String sentDate) {
+    public void setSentDate(LocalDateTime sentDate) {
         this.sentDate = sentDate;
     }
 }

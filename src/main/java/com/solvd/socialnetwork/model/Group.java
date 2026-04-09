@@ -1,12 +1,26 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Group {
     private Long id;
     private Long adminId;
     private String name;
     private String description;
     private String imageUrl;
-    private String createDate;
+    private LocalDateTime createDate;
+
+    public Group() {
+    }
+
+    public Group(Long id, Long adminId, String name, String description, String imageUrl, LocalDateTime createDate) {
+        this.id = id;
+        this.adminId = adminId;
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.createDate = createDate;
+    }
 
     public Long getId() {
         return id;
@@ -48,11 +62,11 @@ public class Group {
         this.imageUrl = imageUrl;
     }
 
-    public String getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 }

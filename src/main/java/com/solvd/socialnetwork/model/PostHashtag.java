@@ -4,6 +4,14 @@ public class PostHashtag {
     private Long id;
     private Long hashtagId;
 
+    public PostHashtag() {
+    }
+
+    public PostHashtag(Long hashtagId, Long id) {
+        this.hashtagId = hashtagId;
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

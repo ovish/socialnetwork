@@ -2,23 +2,19 @@ package com.solvd.socialnetwork.impl;
 
 import com.solvd.socialnetwork.dao.IPostDAO;
 import com.solvd.socialnetwork.model.Post;
-import com.solvd.socialnetwork.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PostDAO implements IPostDAO {
 
     @Override
-    public Post getById(int id) {
+    public Post getById(Long id) {
         Post post = new Post();
         String sql = "SELECT * FROM posts WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
         try {
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setLong(1, id);
             ResultSet resultSet = stm.executeQuery();
             if (resultSet.next()) {
                 post.setUserId(resultSet.getLong("userId"));
@@ -42,7 +38,7 @@ public class PostDAO implements IPostDAO {
             stm.setString(2, post.getContent());
             stm.setString(3, post.getMediaType());
             stm.setString(4, post.getMediaUrl());
-            stm.setString(5, post.getCreatedDate());
+            stm.setTimestamp(5, Timestamp.valueOf(post.getCreatedDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +65,7 @@ public class PostDAO implements IPostDAO {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         String sql = "UPDATE FROM posts WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
 

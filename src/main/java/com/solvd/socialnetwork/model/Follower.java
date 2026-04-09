@@ -1,9 +1,20 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Follower {
     private Long followingUserId;
     private Long followedUserId;
-    private String createDate;
+    private LocalDateTime createDate;
+
+    public Follower() {
+    }
+
+    public Follower(Long followingUserId, Long followedUserId, LocalDateTime createDate) {
+        this.followingUserId = followingUserId;
+        this.followedUserId = followedUserId;
+        this.createDate = createDate;
+    }
 
     public Long getFollowingUserId() {
         return followingUserId;
@@ -21,11 +32,11 @@ public class Follower {
         this.followedUserId = followedUserId;
     }
 
-    public String getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 }

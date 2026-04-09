@@ -12,8 +12,9 @@ public class Main {
 
         UserDAO userDAO = new UserDAO();
 
-        User user = new User(1, "user1", "John", "Smith", "john@gmail.com", "12345", "picture.url", LocalDate.of(1991, 5, 20), LocalDateTime.now());
-        userDAO.save(user);
+
+        User user2 = new User(2L, "user2", "Ann", "Li", "ann@gmail.com", "12345", "picture2.url", LocalDate.of(1990, 2, 11), LocalDateTime.now());
+        userDAO.save(user2);
 
 
 

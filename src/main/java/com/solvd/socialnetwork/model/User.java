@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class User {
 
-    private Integer id;
+    private Long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -15,9 +15,9 @@ public class User {
     private LocalDate birthDate;
     private LocalDateTime registerDate;
 
-    public User () {};
+    public User () {}
 
-    public User(Integer id, String username, String firstName, String lastName, String email, String password, String profilePicture, LocalDate birthDate, LocalDateTime registerDate) {
+    public User(Long id, String username, String firstName, String lastName, String email, String password, String profilePicture, LocalDate birthDate, LocalDateTime registerDate) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -29,11 +29,11 @@ public class User {
         this.registerDate = registerDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

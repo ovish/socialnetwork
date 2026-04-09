@@ -1,9 +1,20 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Chat {
     private Long id;
     private String name;
-    private String createDate;
+    private LocalDateTime createDate;
+
+    public Chat() {
+    }
+
+    public Chat(Long id, String name, LocalDateTime createDate) {
+        this.id = id;
+        this.name = name;
+        this.createDate = createDate;
+    }
 
     public Long getId() {
         return id;
@@ -21,11 +32,11 @@ public class Chat {
         this.name = name;
     }
 
-    public String getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 }

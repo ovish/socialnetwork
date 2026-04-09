@@ -1,11 +1,23 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Story {
     private Long id;
     private Long userId;
     private String mediaUrl;
-    private String CreateDate;
-    private String ExpireDate;
+    private LocalDateTime CreateDate;
+    private LocalDateTime ExpireDate;
+
+    public Story() {}
+
+    public Story(Long id, Long userId, String mediaUrl, LocalDateTime createDate, LocalDateTime expireDate) {
+        this.id = id;
+        this.userId = userId;
+        this.mediaUrl = mediaUrl;
+        CreateDate = createDate;
+        ExpireDate = expireDate;
+    }
 
     public Long getId() {
         return id;
@@ -31,19 +43,19 @@ public class Story {
         this.mediaUrl = mediaUrl;
     }
 
-    public String getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return CreateDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         CreateDate = createDate;
     }
 
-    public String getExpireDate() {
+    public LocalDateTime getExpireDate() {
         return ExpireDate;
     }
 
-    public void setExpireDate(String expireDate) {
+    public void setExpireDate(LocalDateTime expireDate) {
         ExpireDate = expireDate;
     }
 }

@@ -1,11 +1,24 @@
 package com.solvd.socialnetwork.model;
 
+import java.time.LocalDateTime;
+
 public class Friendship {
     private Long id;
     private Long userFromId;
     private Long userToId;
-    private String requestDate;
-    private String approveDate;
+    private LocalDateTime requestDate;
+    private LocalDateTime approveDate;
+
+    public Friendship() {
+    }
+
+    public Friendship(Long id, Long userFromId, Long userToId, LocalDateTime requestDate, LocalDateTime approveDate) {
+        this.id = id;
+        this.userFromId = userFromId;
+        this.userToId = userToId;
+        this.requestDate = requestDate;
+        this.approveDate = approveDate;
+    }
 
     public Long getId() {
         return id;
@@ -31,19 +44,19 @@ public class Friendship {
         this.userToId = userToId;
     }
 
-    public String getRequestDate() {
+    public LocalDateTime getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(String requestDate) {
+    public void setRequestDate(LocalDateTime requestDate) {
         this.requestDate = requestDate;
     }
 
-    public String getApproveDate() {
+    public LocalDateTime getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(String approveDate) {
+    public void setApproveDate(LocalDateTime approveDate) {
         this.approveDate = approveDate;
     }
 }

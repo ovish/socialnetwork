@@ -8,13 +8,13 @@ import java.sql.*;
 public class UserDAO implements IUserDAO {
 
     @Override
-    public User getById(int id) {
+    public User getById(Long id) {
         User user = new User();
         String sql = "SELECT * FROM users WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
         try {
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setLong(1, id);
             ResultSet resultSet = stm.executeQuery();
             if (resultSet.next()) {
                 user.setFirstName(resultSet.getString("first_name"));
@@ -34,7 +34,7 @@ public class UserDAO implements IUserDAO {
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setInt(1, user.getId());
+            stm.setLong(1, user.getId());
             stm.setString(2, user.getUsername());
             stm.setString(3, user.getFirstName());
             stm.setString(4, user.getLastName());
@@ -58,7 +58,7 @@ public class UserDAO implements IUserDAO {
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, user.getUsername());
-            stm.setInt(2, user.getId());
+            stm.setLong(2, user.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,12 +69,12 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         String sql = "UPDATE FROM users WHERE id = ?";
         Connection con = ConnectionPool.getInstance().getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setInt(1, id);
+            stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
