@@ -1,6 +1,5 @@
 <socialNetwork>
 
-    <!-- USERS -->
     <users>
         <user>
             <id>1</id>
@@ -15,7 +14,6 @@
         </user>
     </users>
 
-    <!-- POSTS -->
     <posts>
         <post>
             <id>101</id>
@@ -36,7 +34,6 @@
         </post>
     </posts>
 
-    <!-- HASHTAGS -->
     <hashtags>
         <hashtag>
             <id>1</id>
@@ -49,7 +46,6 @@
         </hashtag>
     </hashtags>
 
-    <!-- POST_HASHTAG (MANY TO MANY) -->
     <postHashtags>
         <postHashtag>
             <postId>101</postId>
@@ -67,7 +63,6 @@
         </postHashtag>
     </postHashtags>
 
-    <!-- FRIENDSHIPS -->
     <friendships>
         <friendship>
             <id>1</id>
@@ -78,7 +73,6 @@
         </friendship>
     </friendships>
 
-    <!-- FOLLOWS -->
     <follows>
         <follow>
             <followingId>2</followingId>
