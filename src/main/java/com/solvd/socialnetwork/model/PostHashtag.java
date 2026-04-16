@@ -1,7 +1,7 @@
 package com.solvd.socialnetwork.model;
 
 public class PostHashtag {
-    private Long id;
+    private Long postId;
     private Long hashtagId;
 
     public PostHashtag() {
@@ -9,15 +9,15 @@ public class PostHashtag {
 
     public PostHashtag(Long hashtagId, Long id) {
         this.hashtagId = hashtagId;
-        this.id = id;
+        this.postId = id;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public Long getHashtagId() {

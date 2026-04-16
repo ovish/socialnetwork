@@ -1,5 +1,5 @@
 <archetype>
-  <id>social-network</id>
+  <postId>social-network</postId>
   <sources>
     <source>src/main/java/App.java</source>
   </sources>

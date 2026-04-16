@@ -1,24 +1,34 @@
 package com.solvd.socialnetwork;
 
-import com.solvd.socialnetwork.impl.UserDAO;
-import com.solvd.socialnetwork.model.User;
+import com.solvd.socialnetwork.xml.SocialNetworkSaxHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.InputStream;
 
 public class Main {
 
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) {
+        try {
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            SocialNetworkSaxHandler handler = new SocialNetworkSaxHandler();
 
-        UserDAO userDAO = new UserDAO();
+            try (InputStream is = Main.class.getClassLoader().getResourceAsStream("social-data.xml")) {
+                parser.parse(is, handler);
+            }
 
-
-        User user2 = new User(2L, "user2", "Ann", "Li", "ann@gmail.com", "12345", "picture2.url", LocalDate.of(1990, 2, 11), LocalDateTime.now());
-        userDAO.save(user2);
-
-
-
-
-
+            LOGGER.info("Users: {}", handler.getUsers().size());
+            LOGGER.info("Posts: {}", handler.getPosts().size());
+            LOGGER.info("Hashtags: {}", handler.getHashtags().size());
+            LOGGER.info("PostHashtags: {}", handler.getPostHashtags().size());
+            LOGGER.info("Friendships: {}", handler.getFriendships().size());
+            LOGGER.info("Follows: {}", handler.getFollows().size());
+        } catch (Exception e) {
+            LOGGER.error("Failed to parse social-data.xml", e);
+        }
     }
 }

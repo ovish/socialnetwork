@@ -1,4 +1,4 @@
-package com.solvd.socialnetwork.impl;
+package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class ConnectionPool {
     private static ConnectionPool instance;
     private final BlockingQueue<Connection> pool;
     private static final int MAX_CONNECTIONS = 5;
-    private static final String URL = "JDBC:mysql://localhost:3306/socialnetwork";
+    private static final String URL = "jdbc:mysql://localhost:3306/socialnetwork";
     private static final String USER = "root";
     private static final String PASSWORD = "00000000";
 
@@ -26,7 +26,7 @@ public class ConnectionPool {
         }
     }
 
-    public static ConnectionPool getInstance () {
+    public static synchronized ConnectionPool getInstance () {
         if (instance == null) {
             instance = new ConnectionPool();
         }

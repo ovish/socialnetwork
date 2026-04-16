@@ -1,0 +1,96 @@
+<socialNetwork>
+
+    <!-- USERS -->
+    <users>
+        <user>
+            <id>1</id>
+            <username>olga</username>
+            <firstName>Olga</firstName>
+            <lastName>Ivanova</lastName>
+            <email>olga@test.com</email>
+            <password>12345</password>
+            <profilePicture>img1.png</profilePicture>
+            <birthDate>1995-05-10</birthDate>
+            <registerDate>2026-04-01T10:00:00</registerDate>
+        </user>
+    </users>
+
+    <!-- POSTS -->
+    <posts>
+        <post>
+            <id>101</id>
+            <userId>1</userId>
+            <content>Hello world</content>
+            <mediaType>IMAGE</mediaType>
+            <mediaUrl>post1.png</mediaUrl>
+            <createdDate>2026-04-01T11:00:00</createdDate>
+        </post>
+
+        <post>
+            <id>102</id>
+            <userId>1</userId>
+            <content>Second post</content>
+            <mediaType>TEXT</mediaType>
+            <mediaUrl>post2.png</mediaUrl>
+            <createdDate>2026-04-01T12:00:00</createdDate>
+        </post>
+    </posts>
+
+    <!-- HASHTAGS -->
+    <hashtags>
+        <hashtag>
+            <id>1</id>
+            <name>java</name>
+        </hashtag>
+
+        <hashtag>
+            <id>2</id>
+            <name>backend</name>
+        </hashtag>
+    </hashtags>
+
+    <!-- POST_HASHTAG (MANY TO MANY) -->
+    <postHashtags>
+        <postHashtag>
+            <postId>101</postId>
+            <hashtagId>1</hashtagId>
+        </postHashtag>
+
+        <postHashtag>
+            <postId>101</postId>
+            <hashtagId>2</hashtagId>
+        </postHashtag>
+
+        <postHashtag>
+            <postId>102</postId>
+            <hashtagId>2</hashtagId>
+        </postHashtag>
+    </postHashtags>
+
+    <!-- FRIENDSHIPS -->
+    <friendships>
+        <friendship>
+            <id>1</id>
+            <userFromId>1</userFromId>
+            <userToId>2</userToId>
+            <requestDate>2026-04-01T10:00:00</requestDate>
+            <approveDate>2026-04-01T11:00:00</approveDate>
+        </friendship>
+    </friendships>
+
+    <!-- FOLLOWS -->
+    <follows>
+        <follow>
+            <followingId>2</followingId>
+            <followedId>1</followedId>
+            <createDate>2026-04-01T12:00:00</createDate>
+        </follow>
+
+        <follow>
+            <followingId>1</followingId>
+            <followedId>3</followedId>
+            <createDate>2026-04-01T13:00:00</createDate>
+        </follow>
+    </follows>
+
+</socialNetwork>

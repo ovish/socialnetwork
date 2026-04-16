@@ -1,37 +1,39 @@
-package com.solvd.socialnetwork.impl;
+package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IUserDAO;
 import com.solvd.socialnetwork.model.User;
 
 import java.sql.*;
 
-public class UserDAO implements IUserDAO {
+public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
 
     @Override
     public User getById(Long id) {
-        User user = new User();
         String sql = "SELECT * FROM users WHERE id = ?";
-        Connection con = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement stm = con.prepareStatement(sql);
+        Connection con = getConnection();
+        try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setLong(1, id);
-            ResultSet resultSet = stm.executeQuery();
-            if (resultSet.next()) {
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setUsername(resultSet.getString("username"));
+            try (ResultSet resultSet = stm.executeQuery()) {
+                if (resultSet.next()) {
+                    User user = new User();
+                    user.setFirstName(resultSet.getString("first_name"));
+                    user.setLastName(resultSet.getString("last_name"));
+                    user.setUsername(resultSet.getString("username"));
+                    return user;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            ConnectionPool.getInstance().releaseConnection(con);
+            releaseConnection(con);
         }
-        return user;    }
+        return null;
+    }
 
     @Override
     public void save(User user) {
         String sql = "INSERT INTO users (id, username, firstName, lastName, email, password, profilePicture, birthDate, registerDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        Connection con = ConnectionPool.getInstance().getConnection();
+        Connection con = getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setLong(1, user.getId());
@@ -47,14 +49,14 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException e) {
            e.printStackTrace();
         } finally {
-            ConnectionPool.getInstance().releaseConnection(con);
+            releaseConnection(con);
         }
     }
 
     @Override
     public void update(User user) {
         String sql = "UPDATE users SET username = ? WHERE id = ?";
-        Connection con = ConnectionPool.getInstance().getConnection();
+        Connection con = getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, user.getUsername());
@@ -63,15 +65,15 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            ConnectionPool.getInstance().releaseConnection(con);
+            releaseConnection(con);
         }
 
     }
 
     @Override
     public void deleteById(Long id) {
-        String sql = "UPDATE FROM users WHERE id = ?";
-        Connection con = ConnectionPool.getInstance().getConnection();
+        String sql = "DELETE FROM users WHERE id = ?";
+        Connection con = getConnection();
 
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setLong(1, id);
@@ -79,7 +81,7 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            ConnectionPool.getInstance().releaseConnection(con);
+            releaseConnection(con);
         }
 
     }

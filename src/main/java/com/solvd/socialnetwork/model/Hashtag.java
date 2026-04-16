@@ -5,15 +5,13 @@ import java.time.LocalDateTime;
 public class Hashtag {
     private Long id;
     private String name;
-    private LocalDateTime createDate;
 
     public Hashtag() {
     }
 
-    public Hashtag(Long id, String name, LocalDateTime createDate) {
+    public Hashtag(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -32,11 +30,4 @@ public class Hashtag {
         this.name = name;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Message {
     private Long id;
-    private Long senderId;
+    private Long userId;
     private Long chatId;
     private String content;
     private LocalDateTime sentDate;
@@ -15,7 +15,7 @@ public class Message {
         this.sentDate = sentDate;
         this.content = content;
         this.chatId = chatId;
-        this.senderId = senderId;
+        this.userId = senderId;
         this.id = id;
     }
 
@@ -27,12 +27,12 @@ public class Message {
         this.id = id;
     }
 
-    public Long getSenderId() {
-        return senderId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getChatId() {
