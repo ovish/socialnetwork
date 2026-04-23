@@ -1,18 +1,31 @@
 package com.solvd.socialnetwork.model;
 
+import jakarta.xml.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
 
+    @XmlAttribute(name = "id")
     private Long id;
+    @XmlElement(name = "username")
     private String username;
+    @XmlElement(name = "firstName")
     private String firstName;
+    @XmlElement(name = "lastName")
     private String lastName;
+    @XmlElement(name = "email")
     private String email;
+    @XmlTransient
     private String password;
+    @XmlElement(name = "profilePicture")
     private String profilePicture;
+    @XmlTransient
     private LocalDate birthDate;
+    @XmlTransient
     private LocalDateTime registerDate;
 
     public User () {}
