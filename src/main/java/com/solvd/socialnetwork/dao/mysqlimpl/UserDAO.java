@@ -2,10 +2,14 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IUserDAO;
 import com.solvd.socialnetwork.model.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
+
+    private static final Logger logger = LogManager.getLogger(UserDAO.class);
 
     @Override
     public User getById(Long id) {
@@ -23,7 +27,7 @@ public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error finding user by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -47,7 +51,7 @@ public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
             stm.setTimestamp(9, Timestamp.valueOf(user.getRegisterDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-           e.printStackTrace();
+            logger.error("Error adding new user", e);
         } finally {
             releaseConnection(con);
         }
@@ -63,7 +67,7 @@ public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
             stm.setLong(2, user.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating user", e);
         } finally {
             releaseConnection(con);
         }
@@ -79,7 +83,7 @@ public class UserDAO extends AbstractMySQLDAO implements IUserDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting user", e);
         } finally {
             releaseConnection(con);
         }

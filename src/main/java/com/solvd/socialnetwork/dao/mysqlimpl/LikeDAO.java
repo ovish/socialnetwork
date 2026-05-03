@@ -2,11 +2,14 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.ILikeDAO;
 import com.solvd.socialnetwork.model.Like;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class LikeDAO extends AbstractMySQLDAO implements ILikeDAO {
 
+    private static final Logger logger = LogManager.getLogger(LikeDAO.class);
 
     @Override
     public Like getById(Long id) {
@@ -24,7 +27,7 @@ public class LikeDAO extends AbstractMySQLDAO implements ILikeDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting like by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -44,7 +47,7 @@ public class LikeDAO extends AbstractMySQLDAO implements ILikeDAO {
             stm.setTimestamp(5, Timestamp.valueOf(like.getCreateDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error adding like", e);
         } finally {
             releaseConnection(con);
         }
@@ -60,7 +63,7 @@ public class LikeDAO extends AbstractMySQLDAO implements ILikeDAO {
             stm.setLong(2, like.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating like", e);
         } finally {
             releaseConnection(con);
         }
@@ -76,7 +79,7 @@ public class LikeDAO extends AbstractMySQLDAO implements ILikeDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting like", e);
         } finally {
             releaseConnection(con);
         }

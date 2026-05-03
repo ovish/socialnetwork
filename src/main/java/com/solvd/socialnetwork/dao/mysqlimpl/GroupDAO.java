@@ -2,10 +2,15 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IGroupDAO;
 import com.solvd.socialnetwork.model.Group;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class GroupDAO extends AbstractMySQLDAO implements IGroupDAO {
+
+    private static final Logger logger = LogManager.getLogger(GroupDAO.class);
+
 
     @Override
     public Group getById(Long id) {
@@ -22,7 +27,7 @@ public class GroupDAO extends AbstractMySQLDAO implements IGroupDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting group by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -43,7 +48,7 @@ public class GroupDAO extends AbstractMySQLDAO implements IGroupDAO {
             stm.setTimestamp(6, Timestamp.valueOf(group.getCreateDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error adding group", e);
         } finally {
             releaseConnection(con);
         }
@@ -62,7 +67,7 @@ public class GroupDAO extends AbstractMySQLDAO implements IGroupDAO {
             stm.setLong(5, group.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating group", e);
         } finally {
             releaseConnection(con);
         }
@@ -78,7 +83,7 @@ public class GroupDAO extends AbstractMySQLDAO implements IGroupDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting group", e);
         } finally {
             releaseConnection(con);
         }

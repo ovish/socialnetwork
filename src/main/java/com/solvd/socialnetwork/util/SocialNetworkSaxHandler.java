@@ -1,4 +1,4 @@
-package com.solvd.socialnetwork.xml;
+package com.solvd.socialnetwork.util;
 
 import com.solvd.socialnetwork.model.*;
 import org.xml.sax.Attributes;

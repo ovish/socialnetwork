@@ -2,12 +2,16 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IPostHashtagDAO;
 import com.solvd.socialnetwork.model.PostHashtag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostHashtagDAO extends AbstractMySQLDAO implements IPostHashtagDAO {
+
+    private static final Logger logger = LogManager.getLogger(PostHashtagDAO.class);
 
     @Override
     public PostHashtag getById(Long postId, Long hashtagId) {
@@ -26,7 +30,7 @@ public class PostHashtagDAO extends AbstractMySQLDAO implements IPostHashtagDAO 
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting post hashtag by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -44,7 +48,7 @@ public class PostHashtagDAO extends AbstractMySQLDAO implements IPostHashtagDAO 
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving post hashtag", e);
         } finally {
             releaseConnection(con);
         }
@@ -62,7 +66,7 @@ public class PostHashtagDAO extends AbstractMySQLDAO implements IPostHashtagDAO 
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting post hashtag", e);
         } finally {
             releaseConnection(con);
         }
@@ -83,7 +87,7 @@ public class PostHashtagDAO extends AbstractMySQLDAO implements IPostHashtagDAO 
                     list.add(postHashtag);
                 }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting all post hashtags", e);
         } finally {
             releaseConnection(con);
         }

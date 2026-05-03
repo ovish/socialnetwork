@@ -1,4 +1,4 @@
-package com.solvd.socialnetwork.xml;
+package com.solvd.socialnetwork.util;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

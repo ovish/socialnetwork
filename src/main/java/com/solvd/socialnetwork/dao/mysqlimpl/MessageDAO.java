@@ -2,10 +2,14 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IMessageDAO;
 import com.solvd.socialnetwork.model.Message;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class MessageDAO extends AbstractMySQLDAO implements IMessageDAO {
+
+    private static final Logger logger = LogManager.getLogger(MessageDAO.class);
 
     @Override
     public Message getById(Long id) {
@@ -22,7 +26,7 @@ public class MessageDAO extends AbstractMySQLDAO implements IMessageDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting message by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -42,7 +46,7 @@ public class MessageDAO extends AbstractMySQLDAO implements IMessageDAO {
             stm.setTimestamp(5, Timestamp.valueOf(message.getSentDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving message", e);
         } finally {
             releaseConnection(con);
         }
@@ -58,7 +62,7 @@ public class MessageDAO extends AbstractMySQLDAO implements IMessageDAO {
             stm.setLong(2, message.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating message", e);
         } finally {
             releaseConnection(con);
         }
@@ -74,7 +78,7 @@ public class MessageDAO extends AbstractMySQLDAO implements IMessageDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting message", e);
         } finally {
             releaseConnection(con);
         }

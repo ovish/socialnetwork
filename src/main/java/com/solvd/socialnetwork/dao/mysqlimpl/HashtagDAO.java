@@ -4,12 +4,17 @@ import com.solvd.socialnetwork.dao.IHashtagDAO;
 import com.solvd.socialnetwork.model.Chat;
 import com.solvd.socialnetwork.model.Hashtag;
 import com.solvd.socialnetwork.model.PostHashtag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
+
+    private static final Logger logger = LogManager.getLogger(HashtagDAO.class);
+
 
     @Override
     public Hashtag getById(Long id) {
@@ -25,7 +30,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting hashtag by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -42,7 +47,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
             stm.setString(2, hashtag.getName());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error adding hashtag", e);
         } finally {
             releaseConnection(con);
         }
@@ -58,7 +63,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
             stm.setLong(2, hashtag.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating hashtag", e);
         } finally {
             releaseConnection(con);
         }
@@ -74,7 +79,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting hashtag", e);
         } finally {
             releaseConnection(con);
         }
@@ -95,7 +100,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
                 list.add(hashtag);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting all hashtags", e);
         } finally {
             releaseConnection(con);
         }
@@ -116,7 +121,7 @@ public class HashtagDAO extends AbstractMySQLDAO implements IHashtagDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting hashtag", e);
         } finally {
             releaseConnection(con);
         }

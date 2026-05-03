@@ -2,11 +2,15 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IChatMemberDAO;
 import com.solvd.socialnetwork.model.ChatMember;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 
 public class ChatMemberDAO extends AbstractMySQLDAO implements IChatMemberDAO {
+
+    private static final Logger logger = LogManager.getLogger(ChatMemberDAO.class);
 
     @Override
     public ChatMember getById(Long id) {
@@ -22,7 +26,7 @@ public class ChatMemberDAO extends AbstractMySQLDAO implements IChatMemberDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting chat member by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -40,7 +44,7 @@ public class ChatMemberDAO extends AbstractMySQLDAO implements IChatMemberDAO {
             stm.setTimestamp(3, Timestamp.valueOf(chatMember.getJoinDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error adding chat member", e);
         } finally {
             releaseConnection(con);
         }
@@ -56,7 +60,7 @@ public class ChatMemberDAO extends AbstractMySQLDAO implements IChatMemberDAO {
             stm.setLong(2, chatMember.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating chat member", e);
         } finally {
             releaseConnection(con);
         }
@@ -72,7 +76,7 @@ public class ChatMemberDAO extends AbstractMySQLDAO implements IChatMemberDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting chat member", e);
         } finally {
             releaseConnection(con);
         }

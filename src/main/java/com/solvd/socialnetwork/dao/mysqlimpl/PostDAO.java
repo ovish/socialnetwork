@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(PostDAO.class);
+    private static final Logger logger = LogManager.getLogger(PostDAO.class);
 
     @Override
     public Post getById(Long id) {
@@ -29,7 +29,7 @@ public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error finding post by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -49,7 +49,7 @@ public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
             stm.setTimestamp(5, Timestamp.valueOf(post.getCreatedDate()));
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving post", e);
         } finally {
             releaseConnection(con);
         }
@@ -65,7 +65,7 @@ public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
             stm.setLong(2, post.getId());
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating post", e);
         } finally {
             releaseConnection(con);
         }
@@ -81,7 +81,7 @@ public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting post", e);
         } finally {
             releaseConnection(con);
         }
@@ -105,7 +105,7 @@ public class PostDAO extends AbstractMySQLDAO implements IPostDAO {
                     }
                 }
         } catch (SQLException e) {
-            LOGGER.error("Error finding identity documents by customer id", e);
+            logger.error("Error finding posts by user id", e);
         } finally {
             releaseConnection(con);
         }

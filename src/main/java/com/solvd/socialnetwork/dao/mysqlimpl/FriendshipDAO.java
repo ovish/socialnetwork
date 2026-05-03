@@ -2,10 +2,15 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IFriendshipDAO;
 import com.solvd.socialnetwork.model.Friendship;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class FriendshipDAO extends AbstractMySQLDAO implements IFriendshipDAO {
+
+    private static final Logger logger = LogManager.getLogger(FriendshipDAO.class);
+
     @Override
     public Friendship getById(Long id) {
         String sql = "SELECT * FROM friendships WHERE id = ?";
@@ -21,7 +26,7 @@ public class FriendshipDAO extends AbstractMySQLDAO implements IFriendshipDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -46,7 +51,7 @@ public class FriendshipDAO extends AbstractMySQLDAO implements IFriendshipDAO {
             }
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error adding friendship", e);
         } finally {
             releaseConnection(con);
         }
@@ -69,7 +74,7 @@ public class FriendshipDAO extends AbstractMySQLDAO implements IFriendshipDAO {
             }
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error updating friendship", e);
         } finally {
             releaseConnection(con);
         }
@@ -85,7 +90,7 @@ public class FriendshipDAO extends AbstractMySQLDAO implements IFriendshipDAO {
             stm.setLong(1, id);
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error deleting friendship", e);
         } finally {
             releaseConnection(con);
         }

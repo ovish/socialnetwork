@@ -2,10 +2,15 @@ package com.solvd.socialnetwork.dao.mysqlimpl;
 
 import com.solvd.socialnetwork.dao.IFollowDAO;
 import com.solvd.socialnetwork.model.Follow;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class FollowDAO extends AbstractMySQLDAO implements IFollowDAO {
+
+    private static final Logger logger = LogManager.getLogger(FollowDAO.class);
+
     @Override
     public Follow get(Long followedId, Long followingId) {
         String sql = "SELECT * FROM follows WHERE followed_id = ? AND following_id = ?";
@@ -22,7 +27,7 @@ public class FollowDAO extends AbstractMySQLDAO implements IFollowDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting by id", e);
         } finally {
             releaseConnection(con);
         }
@@ -41,12 +46,11 @@ public class FollowDAO extends AbstractMySQLDAO implements IFollowDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error following", e);
         } finally {
             releaseConnection(con);
         }
     }
-
 
     @Override
     public void unfollow(Long followedId, Long followingId) {
@@ -59,7 +63,7 @@ public class FollowDAO extends AbstractMySQLDAO implements IFollowDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error unfollowing", e);
         } finally {
             releaseConnection(con);
         }

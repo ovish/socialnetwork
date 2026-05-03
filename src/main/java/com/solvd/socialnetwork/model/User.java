@@ -1,5 +1,8 @@
 package com.solvd.socialnetwork.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -10,22 +13,31 @@ import java.time.LocalDateTime;
 public class User {
 
     @XmlAttribute(name = "id")
+    @JsonProperty("id")
     private Long id;
     @XmlElement(name = "username")
+    @JsonProperty("username")
     private String username;
     @XmlElement(name = "firstName")
+    @JsonProperty("firstName")
     private String firstName;
+    @JsonProperty("lastName")
     @XmlElement(name = "lastName")
     private String lastName;
     @XmlElement(name = "email")
+    @JsonProperty("email")
     private String email;
     @XmlTransient
+    @JsonIgnore
     private String password;
     @XmlElement(name = "profilePicture")
+    @JsonIgnore
     private String profilePicture;
     @XmlTransient
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @XmlTransient
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerDate;
 
     public User () {}
