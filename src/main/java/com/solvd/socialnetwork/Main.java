@@ -1,10 +1,13 @@
 package com.solvd.socialnetwork;
 
 import com.solvd.socialnetwork.model.User;
+import com.solvd.socialnetwork.mybatis.MyBatisConfig;
+import com.solvd.socialnetwork.mybatis.UserMapper;
 import com.solvd.socialnetwork.util.JaxbUtil;
 import com.solvd.socialnetwork.util.JsonParser;
 import com.solvd.socialnetwork.util.SocialNetworkSaxHandler;
 import jakarta.xml.bind.JAXBException;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +18,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 public class Main {
 
@@ -105,6 +109,37 @@ public class Main {
                 u.getRegisterDate()
         ));
 
+
+        try (SqlSession session = MyBatisConfig
+                .getSqlSessionFactory()
+                .openSession(true)) {
+
+            UserMapper mapper = MyBatisConfig.getUserMapper(session);
+
+            User user3 = new User(
+                    3L,
+                    "john_doe",
+                    "John",
+                    "Doe",
+                    "john@example.com",
+                    "pass",
+                    null,
+                    LocalDate.now(),
+                    LocalDateTime.now()
+            );
+            mapper.insert(user3);
+
+            User dbUser = mapper.findById(3L);
+            logger.info(dbUser.getUsername());
+
+            users = mapper.findAll();
+            logger.info(users.size());
+
+            dbUser.setEmail("new@email.com");
+            mapper.update(dbUser);
+
+        }
     }
+
 
 }

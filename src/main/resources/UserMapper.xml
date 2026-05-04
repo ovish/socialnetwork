@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.socialnetwork.mybatis.UserMapper">
+
+    <resultMap id="UserResultMap" type="User">
+        <id     property="id"             column="id"/>
+        <result property="username"       column="username"/>
+        <result property="firstName"      column="firstName"/>
+        <result property="lastName"       column="lastName"/>
+        <result property="email"          column="email"/>
+        <result property="password"       column="password"/>
+        <result property="profilePicture" column="profilePicture"/>
+        <result property="birthDate"      column="birthDate"/>
+        <result property="registerDate"   column="registerDate"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO users (id, username, firstName, lastName, email, password, profilePicture, birthDate, registerDate)
+        VALUES (#{id}, #{username}, #{firstName}, #{lastName}, #{email}, #{password}, #{profilePicture}, #{birthDate}, #{registerDate})
+    </insert>
+
+    <select id="findById" resultMap="UserResultMap">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="UserResultMap">
+        SELECT * FROM users
+    </select>
+
+    <update id="update">
+        UPDATE users SET
+        username        = #{username},
+        firstName      = #{firstName},
+        lastName       = #{lastName},
+        email           = #{email},
+        profilePicture = #{profilePicture},
+        birthDate      = #{birthDate}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+</mapper>
