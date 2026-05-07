@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,6 +27,8 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
+
+        //SAX
         try {
             SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
             SocialNetworkSaxHandler handler = new SocialNetworkSaxHandler();
@@ -44,6 +48,7 @@ public class Main {
         }
 
 
+        //Jaxb
         User user = new User(
                 1L,
                 "olga",
@@ -70,21 +75,23 @@ public class Main {
             logger.error("JAXB operation failed", e);
         }
 
+        //Jackson
+        try {
+            File file = new File("src/main/resources/user.json");
+            JsonParser.serialize(user, file);
+            logger.info("Saved user to: {}", file.getAbsolutePath());
+        } catch (IOException e) {
+            logger.error("Failed to serialize user to file: ", e);
+        }
 
+        try {
+            InputStream is = Main.class.getClassLoader().getResourceAsStream("user.json");
+            User fromFile = JsonParser.deserialize(is, User.class);
+            logger.info("Loaded from file: {} | {}", fromFile.getUsername(), fromFile.getRegisterDate());
+        } catch (IOException e) {
+            logger.error("Failed to deserialize user from file: ", e);
+        }
 
-        String json = JsonParser.toJsonString(user);
-        logger.info("JSON string");
-
-        User parsedUser = JsonParser.fromJson(json, User.class);
-        logger.info("Parsed user");
-
-
-        File file = new File("src/main/resources/user.json");
-        JsonParser.toJson(user, file);
-        logger.info("Saved object to file", file.getAbsolutePath());
-
-        User fromFile = JsonParser.fromJson(file, User.class);
-        logger.info("from Json");
 
         User user2 = new User(
                 2L,
@@ -98,18 +105,7 @@ public class Main {
                 LocalDateTime.of(2023, 6, 20, 8, 0, 0)
         );
 
-        File listFile = new File("src/main/resources/users.json");
-        JsonParser.toJson(List.of(user, user2), listFile);
-
-        List<User> users = JsonParser.fromJsonList(listFile, User.class);
-        logger.info("Total users: {}", users.size());
-        users.forEach(u -> logger.info(" - {} | {} | registered: {}",
-                u.getUsername(),
-                u.getEmail(),
-                u.getRegisterDate()
-        ));
-
-
+        //MyBatis
         try (SqlSession session = MyBatisConfig
                 .getSqlSessionFactory()
                 .openSession(true)) {
@@ -118,9 +114,9 @@ public class Main {
 
             User user3 = new User(
                     3L,
-                    "john_doe",
+                    "john_smith",
                     "John",
-                    "Doe",
+                    "Smith",
                     "john@example.com",
                     "pass",
                     null,
@@ -132,7 +128,7 @@ public class Main {
             User dbUser = mapper.findById(3L);
             logger.info(dbUser.getUsername());
 
-            users = mapper.findAll();
+            List<User> users = mapper.findAll();
             logger.info(users.size());
 
             dbUser.setEmail("new@email.com");

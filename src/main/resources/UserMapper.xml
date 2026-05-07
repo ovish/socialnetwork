@@ -17,9 +17,9 @@
         <result property="registerDate"   column="registerDate"/>
     </resultMap>
 
-    <insert id="insert">
-        INSERT INTO users (id, username, firstName, lastName, email, password, profilePicture, birthDate, registerDate)
-        VALUES (#{id}, #{username}, #{firstName}, #{lastName}, #{email}, #{password}, #{profilePicture}, #{birthDate}, #{registerDate})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, firstName, lastName, email, password, profilePicture, birthDate, registerDate)
+        VALUES (#{username}, #{firstName}, #{lastName}, #{email}, #{password}, #{profilePicture}, #{birthDate}, #{registerDate})
     </insert>
 
     <select id="findById" resultMap="UserResultMap">
